@@ -1,0 +1,15 @@
+- name: El Tiempo
+  slugname: eltiempo
+  url: https://eltiempo.com
+  home_selector:
+    tag: a
+    attr: class
+    value: title page-link
+
+- name: Portafolio
+  slugname: portafolio
+  url: https://www.portafolio.co
+  home_selector:
+    tag: a
+    attr: class
+    value: title page-link
