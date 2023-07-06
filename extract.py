@@ -1,51 +1,23 @@
 import requests
-from bs4 import BeautifulSoup
+
+from config import logging
 
 
-class Portal:
-    def __init__(self, portal: str, url: str, links_selector: dict) -> None:
-        self.portal = portal
-        self.url = url
-        self.links_selector = links_selector
+def extract(page):
+    page_name = page['name']
+    page_url = page['url']
 
-    def get_soup(self) -> bool:
-        response = requests.get(self.url)
-        
-        if response.status_code == 200:
-            self.soup = BeautifulSoup(response.content, 'html.parser')
-            return True
+    logging.info(f'Extracting from: {page_name}')
 
-        self.soup = None
-        return False
-
-    def get_links_to_articles(self) -> list:
-        attr = self.links_selector['attr']
-
-        if attr == 'class':
-            articles = self.find_by_class()
-        elif attr == 'href':
-            articles = self.find_by_href()
-        else:
-            articles = self.find_by_attr()
-
-        return articles
-        
-    def find_by_class(self) -> list:
-        tag = self.links_selector['tag']
-        value = self.links_selector['value']
-        articles = self.soup.find_all(tag, class_=value)
-        
-        if not articles:
-            return []
-        
-        links = []
-        for a in articles:
-            links.append(a.get('href', ''))
-
-        return links
-
-    def find_by_href(self) -> list:
-        print('href')
-
-    def find_by_attr(self) -> list:
-        print('attr')
+    response = requests.get(page_url)
+    if response.status_code == 200:
+        return {
+            'content': response.text,
+            'status_code': response.status_code
+        }
+    else:
+        logging.error(f'Request error on {page_name}: {response.status_code}')
+        return {
+            'error': 'An error as ocurred',
+            'status_code': response.status_code
+        }

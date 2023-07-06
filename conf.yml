@@ -1,15 +1,48 @@
-- name: El Tiempo
-  slugname: eltiempo
-  url: https://eltiempo.com
-  home_selector:
-    tag: a
-    attr: class
-    value: title page-link
-
-- name: Portafolio
-  slugname: portafolio
-  url: https://www.portafolio.co
-  home_selector:
-    tag: a
-    attr: class
-    value: title page-link
+pages:
+  - eltiempo:
+    name: El tiempo
+    url: https://eltiempo.com
+    article:
+      tag: div
+      class: article-details
+    title:
+      tag: a
+      class: title page-link
+    link:
+      tag: a
+      class: title page-link
+    epigraph:
+      tag: a
+      class: epigraph page-link
+  
+  - portafolio:
+    name: Portafolio
+    url: https://portafolio.co
+    article:
+      tag: article
+      class: sumario
+    title:
+      tag: h3
+      class: title
+    link:
+      tag: a
+      class: page-link
+    epigraph:
+      tag: p
+      class: epigraph
+  
+  - dinero:
+    name: Revista Dinero
+    url: https://www.dinero.com/
+    article:
+      tag: article
+      class: article
+    title:
+      tag: a
+      class: article-h-link
+    link:
+      tag: a
+      class: article-h-link
+    epigraph:
+      tag: p
+      class: 
